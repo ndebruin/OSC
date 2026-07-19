@@ -15,7 +15,7 @@ Extends the Serial class to encode SLIP over serial
 
 
 
-#if (defined(TEENSYDUINO) && (defined(USB_SERIAL) || defined(USB_DUAL_SERIAL) || defined(USB_TRIPLE_SERIAL) || defined(USB_SERIAL_HID) || defined(USB_MIDI_SERIAL) || defined(USB_MIDI_AUDIO_DUAL_SERIAL) || defined(USB_MIDI4_SERIAL) || defined(USB_MIDI16_SERIAL) || defined(USB_MIDI_AUDIO_SERIAL) || defined(USB_MIDI16_AUDIO_SERIAL))) || (!defined(TEENSYDUINO) && defined(__AVR_ATmega32U4__)) || defined(ARDUINO_SAMD_ADAFRUIT)|| defined(__SAM3X8E__) || (defined(_USB) && defined(_USE_USB_FOR_SERIAL_))  || defined(_SAMD21_) || defined(__PIC32MX__) || defined(__PIC32MZ__) || defined(ARDUINO_USB_CDC_ON_BOOT) || defined(ARDUINO_ARCH_RP2040)
+#if (defined(TEENSYDUINO) && (defined(USB_SERIAL) || defined(USB_DUAL_SERIAL) || defined(USB_TRIPLE_SERIAL) || defined(USB_SERIAL_HID) || defined(USB_MIDI_SERIAL) || defined(USB_MIDI_AUDIO_DUAL_SERIAL) || defined(USB_MIDI4_SERIAL) || defined(USB_MIDI16_SERIAL) || defined(USB_MIDI_AUDIO_SERIAL) || defined(USB_MIDI16_AUDIO_SERIAL))) || (!defined(TEENSYDUINO) && defined(__AVR_ATmega32U4__)) || defined(ARDUINO_SAMD_ADAFRUIT)|| defined(__SAM3X8E__) || (defined(_USB) && defined(_USE_USB_FOR_SERIAL_))  || defined(_SAMD21_) || defined(__PIC32MX__) || defined(__PIC32MZ__) || defined(ARDUINO_USB_CDC_ON_BOOT) || defined(ARDUINO_ARCH_RP2040) || defined(STM32)
 #define BOARD_HAS_USB_SERIAL
 
 
@@ -37,6 +37,8 @@ Extends the Serial class to encode SLIP over serial
 #include <SerialUSB.h>
 #elif defined(ARDUINO_SAMD_ADAFRUIT)
 #include "USB/USBAPI.h"
+#elif defined(STM32)
+#include "USBSerial.h"
 #else
 #error Unknown USB port
 #endif
@@ -264,7 +266,7 @@ typedef decltype(SerialUSB) actualUSBtype;
 typedef decltype(SerialUSB) actualUSBtype;
 
 // defined(__SAM3X8E__)
-#elif  defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_SAMD_ADAFRUIT) || defined(ARDUINO_USB_CDC_ON_BOOT) || defined(CORE_TEENSY)  || defined(__AVR_ATmega32U4__) || (defined(__PIC32MX__) || defined(__PIC32MZ__))
+#elif  defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_SAMD_ADAFRUIT) || defined(ARDUINO_USB_CDC_ON_BOOT) || defined(CORE_TEENSY)  || defined(__AVR_ATmega32U4__) || (defined(__PIC32MX__) || defined(__PIC32MZ__)) || defined(STM32)
 #define thisBoardsSerialUSB Serial
 typedef decltype(Serial) actualUSBtype;
 #endif
